@@ -36,16 +36,6 @@ static	int		valid_check(char c, int lines, int hash, int connect)
 	return (1);
 }
 
-static int		linesizefinder(char *input)
-{
-	int characters;
-
-	characters = 0;
-	while (input[characters] != '\n')
-		characters++;
-	return (characters);
-}
-
 static int		cfinder(char *input, int i, int line, int linesize)
 {
 	int count;
