@@ -11,7 +11,32 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
-int linesizefinder(char *input)
+
+static	int		valid_check(char c, int lines, int hash, int connect)
+{
+	if (file[i] != '.' && file[i] != '#' && file[i] != '\n')
+		return (0);
+	if (file[i] == '\n')
+	{
+		if (file[i + 1] == '\n' && file[i + 2] == '\n')
+			return (0);
+		lines++;
+	}
+	if (file[i] == '#')
+	{
+		connect = cfinder(file, i, lines, 5) + connect;
+		hash++;
+	}
+	if (lines == 5)
+	{
+		if (((file[i + 1] != '\n') && (file[i + 1]))
+			|| (hash != 4) || (connect < 3))
+			return (0);
+	}
+	return (1);
+}
+
+static int		linesizefinder(char *input)
 {
 	int characters;
 
@@ -21,79 +46,41 @@ int linesizefinder(char *input)
 	return (characters);
 }
 
-int     connectionfinder(char *input, int index, int line, int linesize)
+static int		cfinder(char *input, int i, int line, int linesize)
 {
 	int count;
 
 	count = 0;
-	if (line == 0)
+	if (line != linesize)
 	{
-		if (input[index + 1] == '#')
+		if (input[i + 1] == '#')
 			count++;
-		if (input[index - 1] == '#')
-			count++;
-		if (input[index + linesize] == '#')
+		if (input[i + linesize] == '#')
 			count++;
 	}
-	if (line == linesize)
+	if (line == linesize - 1)
 	{
-		if (input[index + 1] == '#')
-			count++;
-		if (input[index - 1] == '#')
-			count++;
-		if (input[index - linesize] == '#')
-			count++;
-	}
-	if (line != 0 && line != linesize)
-	{
-		if (input[index + 1] == '#')
-			count++;
-		if (input[index - 1] == '#')
-			count++;
-		if (input[index + linesize] == '#')
-			count++;
-		if (input[index - linesize] == '#')
+		if (input[i + 1] == '#')
 			count++;
 	}
 	return (count);
 }
-int    validates(char *fileinput)
-{
-	int index;
-	int lines;
-	int poundsigns;
-	int connections;
-	int linesize;
 
-	index = 0;
+int				validates(char *file)
+{
+	int i;
+	int lines;
+	int hash;
+	int connect;
+
+	i = 0;
 	lines = 0;
-	poundsigns = 0;
-	connections = 0;
-	linesize = linesizefinder(fileinput);
-	while (fileinput[index])
+	hash = 0;
+	connect = 0;
+	while (file[i])
 	{
-		if (fileinput[index] != '.' && fileinput[index] != '#' && fileinput[index] != '\n')
-			return (0);
-		if (fileinput[index] == '\n')
-		{
-			if (fileinput[index + 1] == '\n' && fileinput[index + 2] == '\n')
-				return (0);
-			lines++;
-		}
-		if (fileinput[index] == '#')
-		{
-			connections = connectionfinder(fileinput, index, lines, linesize) + connections;
-			poundsigns++;
-		}
-		if (lines == linesize)
-		{
-			if (((fileinput[index + 1] != '\n') && (fileinput[index + 1] != '\0')) || (poundsigns != 4) || (connections < 4))
-				return (0);
-			poundsigns = 0;
-			lines = 0;
-			connections = 0;
-		}
-		index++;
+		if (!(valid_check(file[i], lines, hash, connect)))
+			i++;
 	}
 	return (1);
 }
