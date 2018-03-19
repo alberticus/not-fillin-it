@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-static	int		valid_check(char c, int lines, int hash, int connect)
+static int		valid_check(char c, int lines, int hash, int connect)
 {
 	if (file[i] != '.' && file[i] != '#' && file[i] != '\n')
 		return (0);
@@ -56,7 +56,7 @@ static int		cfinder(char *input, int i, int line, int linesize)
 	return (count);
 }
 
-int				validates(char *file)
+int				validate(char *file)
 {
 	int i;
 	int lines;
