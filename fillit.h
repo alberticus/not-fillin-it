@@ -27,5 +27,6 @@ char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strnew(size_t size);
 void			ft_putendl(char const *s);
+char			*ft_strstr(const char *str, const char *to_find);
 
 #endif

@@ -11,45 +11,43 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#define INIT size_t i; size_t index; size_t f; char **str
 
 static int		ft_wc(const char *str, char c)
 {
-	int	count;
+	int	f;
 
-	count = 0;
+	f = 0;
 	while (*str)
 	{
 		if (*str != c && *str)
-			if (*(str + 1) == c || !*(str + 1))
-				count++;
+			if ((*(str + 1) == c && *(str + 2) == c) || !*(str + 1))
+				f++;
 		str++;
 	}
-	return (count);
+	return (f);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	size_t	i;
-	size_t	index;
-	size_t	count;
-	char	**str;
-
+	INIT;
 	i = 0;
 	index = 0;
 	if (!(str = (char **)ft_memalloc(sizeof(char *) * (ft_wc(s, c) + 1))))
 		return (NULL);
 	while (s[i])
 	{
-		while (s[i] == c)
+		while (s[i] == c && s[i + 1] == c)
 			i++;
 		if (!s[i])
 			break ;
-		count = 0;
-		while (s[i + count] != c && s[i + count])
-			count++;
-		if (!(str[index] = ft_strsub(s, i, count)))
+		f = 0;
+		while ((s[i + f] != c && s[i + f])
+			|| (s[i + f + 1] != c && s[i + f] == c))
+			f++;
+		if (!(str[index] = ft_strsub(s, i, f)))
 			return (NULL);
-		i = i + count;
+		i = i + f;
 		index++;
 	}
 	str[index] = 0;
