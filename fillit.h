@@ -18,5 +18,14 @@ typedef struct	s_tetri_data
 }				t_tetri_data;
 
 int				validate(char *file);
+char			**set_map(char *map);
+char			**ft_strsplit(char const *s, char c);
+void			ft_bzero(void *str, size_t n);
+void			*ft_memset(void *b, int c, size_t len);
+void			*ft_memalloc(size_t size);
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
+char			*ft_strncpy(char *dest, const char *src, size_t n);
+char			*ft_strnew(size_t size);
+void			ft_putendl(char const *s);
 
 #endif

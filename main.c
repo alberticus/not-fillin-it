@@ -28,7 +28,7 @@ static char		*fileread(char *path)
 	return (ft_strdup(buffer));
 }
 
-static void			print_map(char **map)
+static void		print_map(char **map)
 {
 	while (*map)
 		ft_putendl(*map++);
