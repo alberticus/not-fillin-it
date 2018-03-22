@@ -44,3 +44,19 @@ char **convert(char *piece)
 	}
 	return (converted);
 }
+
+void normalize_array(char ***shapearray, int totalpieces)
+{
+	int index;
+	
+	index = 0;
+	while (index < totalpieces)
+	{
+		normalize_piece(shapearray[index]);
+		index++;
+	}
+}
+
+void normalize_piece(char **piece)
+{
+	
