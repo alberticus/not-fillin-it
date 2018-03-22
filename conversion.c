@@ -59,4 +59,19 @@ void normalize_array(char ***shapearray, int totalpieces)
 
 void normalize_piece(char **piece)
 {
+	int x;
+	int y;
+	int startx;
+	int starty;
 	
+	x = 0;
+	y = 0;
+	startx = 4;
+	starty = 4;
+	while (x < 4)
+	{
+		while (y < 4)
+		{
+			if (piece[x][y] == '#')
+			{
+				
