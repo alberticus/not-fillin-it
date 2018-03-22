@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
-#define INIT size_t i; size_t index; size_t f; char **str
+#define INIT size_t i; size_t index; size_t count; char **str
 
 static int		ft_wc(const char *str, char c)
 {
-	int	f;
+	int	count;
 
-	f = 0;
+	count = 0;
 	while (*str)
 	{
 		if (*str != c && *str)
 			if ((*(str + 1) == c && *(str + 2) == c) || !*(str + 1))
-				f++;
+				count++;
 		str++;
 	}
-	return (f);
+	return (count);
 }
 
 char			**ft_strsplit(char const *s, char c)
@@ -41,13 +41,13 @@ char			**ft_strsplit(char const *s, char c)
 			i++;
 		if (!s[i])
 			break ;
-		f = 0;
-		while ((s[i + f] != c && s[i + f])
-			|| (s[i + f + 1] != c && s[i + f] == c))
-			f++;
-		if (!(str[index] = ft_strsub(s, i, f)))
+		count = 0;
+		while ((s[i + count] != c && s[i + count])
+			|| (s[i + count + 1] != c && s[i + count] == c))
+			count++;
+		if (!(str[index] = ft_strsub(s, i, count)))
 			return (NULL);
-		i = i + f;
+		i = i + count;
 		index++;
 	}
 	str[index] = 0;

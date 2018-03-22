@@ -39,7 +39,7 @@ int				main(int ac, char **av)
 	char **map;
 
 	if (!(validate(fileread(av[1]))))
-		return ;// status / usage message
+		ft_putendl("Error: invalid file please use an appropriate .txt file");
 	map = set_map(fileread(av[1]));
 	print_map(map);
 }

@@ -16,10 +16,19 @@ move_piece
 
 place_piece
 
-make_pieces()
-{
-	char **pieces;
+static set_pieces(char **map)
 
-	pieces = ft_strsplit(*map, '\n')
-}
+char	**make_pieces(char *map)
+{
+	char	**pieces;
+	int		index;
+	int		x;
+	int		y;
+
+	index = 0;
+	x = 0;
+	y = 0;
+	if (!(pieces = ft_strsplit(*map, '\n')))
+		return (NULL);
+
 }

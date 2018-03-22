@@ -28,5 +28,6 @@ char			*ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strnew(size_t size);
 void			ft_putendl(char const *s);
 char			*ft_strstr(const char *str, const char *to_find);
+char			**make_pieces(char *map);
 
 #endif

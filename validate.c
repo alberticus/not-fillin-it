@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate.c                                         :+:      :+:    :+:   */
+/*   validate.ct                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atsai <atsai@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -60,6 +60,29 @@ static int		cfinder(char *input, int i, int line, int linesize)
 	return (count);
 }
 
+static int		ft_ps(const char *str, char c)
+{
+	int	ct;
+	int len;
+
+	ct = 0;
+	while (str[ct])
+	{
+		if (str[ct] == c)
+			ct++;
+		len = 0;
+		while (str[ct + len] != c)
+			len++;
+		if ((len != 20 && str[ct + len + 1] == c && str[ct + len] == c)
+			|| len != 20 && !(str[ct + len + 1]))
+			return (0);
+		else if (str[ct + len + 1] == c && str[ct + len] == c)
+			ct += len;
+		ct++;
+	}
+	return (1);
+}
+
 int				validate(char *file)
 {
 	int i;
@@ -71,10 +94,9 @@ int				validate(char *file)
 	lines = 0;
 	hash = 0;
 	connect = 0;
-	while (file[i])
-	{
-		if (!(valid_check(file, lines, hash, connect)))
-			i++;
-	}
-	return (1);
+	if (!(ft_ps(file, '\n')))
+		return (0);
+	if (valid_check(file, lines, hash, connect))
+		return (1);
+	return (0);
 }

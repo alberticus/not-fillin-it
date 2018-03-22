@@ -19,7 +19,7 @@ static void free_map(char **map)
   i = 0;
   while (map[i])
   {
-    free(map[i])
+    free(map[i]);
       i++;
   }
   free(map);
@@ -27,6 +27,10 @@ static void free_map(char **map)
 
 char		**make_map(char *map_str)
 {
+	char	**piece_array;
+
+	if (!(piece_array = make_pieces(map_str)))
+		return (NULL)
 }
 
 char		**set_map(char *map_str)
