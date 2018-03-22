@@ -74,4 +74,25 @@ void normalize_piece(char **piece)
 		{
 			if (piece[x][y] == '#')
 			{
-				
+				if (x < startx)
+					startx = x;
+				if (y < starty)
+					starty = y;
+			}
+			y++;
+		}
+		x++;
+	}
+	x = 0;
+	y = 0;
+	while (x < startx)
+	{
+		moveleft(piece);
+		x++;
+	}
+	while (y < starty)
+	{
+		moveup(piece);
+		y++;
+	}
+}
