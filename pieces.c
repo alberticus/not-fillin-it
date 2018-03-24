@@ -12,23 +12,20 @@
 
 #include "fillit.h"
 
-move_piece
-
-place_piece
-
-static set_pieces(char **map)
-
-char	**make_pieces(char *map)
+static int	been_placed(char *str, int i)
 {
-	char	**pieces;
-	int		index;
-	int		x;
-	int		y;
+	char	*alpha;
 
-	index = 0;
-	x = 0;
-	y = 0;
-	if (!(pieces = ft_strsplit(*map, '\n')))
-		return (NULL);
+	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	if (str[i] != alpha[i])
+		return (0)
+	alpha[i] = 0;
+	return (1);
+}
 
+void		place_piece(char **map, char *piece, int board, int i)
+{
+	char	*alpha;
+
+	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 }

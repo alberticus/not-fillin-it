@@ -36,10 +36,16 @@ static void		print_map(char **map)
 
 int				main(int ac, char **av)
 {
-	char **map;
+	char	**map_pieces;
+	char	**map;
+	int		board[2];
+	int		i;
 
+	i = 0;
 	if (!(validate(fileread(av[1]))))
 		ft_putendl("Error: invalid file please use an appropriate .txt file");
-	map = set_map(fileread(av[1]));
+	map_pieces = ft_strsplit(fileread(av[1]), '\n');
+	map = set_map();
+	solve(map, map_pieces, board, i);
 	print_map(map);
 }

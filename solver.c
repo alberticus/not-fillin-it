@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dysotoma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/19 17:21:36 by dysotoma          #+#    #+#             */
-/*   Updated: 2018/03/19 17:21:38 by dysotoma         ###   ########.fr       */
+/*   Created: 2018/03/21 21:56:53 by dysotoma          #+#    #+#             */
+/*   Updated: 2018/03/21 21:56:59 by dysotoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#define y 0
+#define x 1
+#define dimension 2
 
-static void free_map(char **map)
+void	solve(char **map, char **pieces, int *board, int i)
 {
-  int i;
-  
-  i = 0;
-  while (map[i])
-  {
-    free(map[i]);
-      i++;
-  }
-  free(map);
-}
+	char	*alpha;
 
-char		**set_map(void)
-{
-	char** map;
-
-	if (!(map = (char**)malloc(sizeof(map[0][0]) * 15 * 15)))
-		return (NULL);
-	ft_memset(map, '.', sizeof(map[0][0]) * 15 * 15);
+	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	while (board[y] < board[dimension])
+		while (board[x] < board[dimension])
+			if (!(place_piece(map, pieces[i], board)))
 }

@@ -13,12 +13,12 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 
-typedef struct	s_tetri_data
-{
-}				t_tetri_data;
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <string.h>
 
 int				validate(char *file);
-char			**set_map(char *map);
 char			**ft_strsplit(char const *s, char c);
 void			ft_bzero(void *str, size_t n);
 void			*ft_memset(void *b, int c, size_t len);
@@ -29,5 +29,9 @@ char			*ft_strnew(size_t size);
 void			ft_putendl(char const *s);
 char			*ft_strstr(const char *str, const char *to_find);
 char			**make_pieces(char *map);
+char			**make_map(char **map);
+char			**set_map(void);
+void			place_piece(char **map, char **piece);
+void			solve(char **map, char **pieces, int *board, int i);
 
 #endif

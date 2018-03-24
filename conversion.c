@@ -10,37 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char **convert(char *piece)
+char **convert(char *piece, int index, int x, int y)
 {
 	char** converted;
-	int index;
-	int x;
-	int y;
 
-	index = 0;
-	x = 0;
-	y = 0;
-	converted = (char**)malloc(sizeof(char) * 25);
+	if (!(converted = (char**)malloc(sizeof(char) * 25)))
+		return (NULL);
+	ft_memset(converted, 0, sizeof(converted[0][0]) * 5 * 5 );
 	while (y < 5)
 	{
 		while (x < 5)
 		{
 			converted[x][y] = piece[index];
-			if (x == 5)
-				converted[x][y] = '\0';
 			x++;
 			index++;
 		}
 		x = 0;
 		y++;
-		if (y == 5)
-		{
-			while (x <= 5)
-			{
-				converted[x][y] = '\0';
-				x++;
-			}
-		}
 	}
 	return (converted);
 }
