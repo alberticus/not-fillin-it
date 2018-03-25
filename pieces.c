@@ -42,8 +42,8 @@ void		place_piece(char **map, char *piece, int board, int i)
 	{
 
 	}
-
 }
+
 
 void		remove_piece(char **map, char *alphabet, int dimension, int index)
 {
@@ -65,3 +65,24 @@ void		remove_piece(char **map, char *alphabet, int dimension, int index)
 	}
 	been_placed(alphabet, index, 0);
 }
+
+int		can_place(char **map, char *piece, int dimension)
+{
+	int index;
+	int x;
+	int y;
+	
+	index = 0;
+	x = 0;
+	y = 0;
+	while (piece)
+	{
+		if (piece[index] == '\n')
+		{
+			x = 0;
+			y++;
+		}
+		if (piece[index] == '#' && map[x][y] != '.')
+			return (0);
+		index++;
+		x++;
