@@ -29,3 +29,23 @@ void		place_piece(char **map, char *piece, int board, int i)
 
 	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 }
+
+void		remove_piece(char **map, char character, int dimension)
+{
+	int x;
+	int y;
+	
+	x = 0;
+	y = 0;
+	while (y < dimension)
+	{
+		while (x < dimension)
+		{
+			if (map[x][y] == character)
+				map[x][y] = '.';
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
