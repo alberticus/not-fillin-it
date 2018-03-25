@@ -29,7 +29,6 @@ char			*ft_strnew(size_t size);
 void			ft_putendl(char const *s);
 char			*ft_strstr(const char *str, const char *to_find);
 char			**make_pieces(char *map);
-char			**make_map(char **map);
 char			**set_map(void);
 void			place_piece(char **map, char **piece);
 void			solve(char **map, char **pieces, int *board, int i);

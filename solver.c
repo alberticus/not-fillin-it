@@ -20,7 +20,15 @@ void	solve(char **map, char **pieces, int *board, int i)
 	char	*alpha;
 
 	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	while (board[y] < board[dimension])
-		while (board[x] < board[dimension])
-			if (!(place_piece(map, pieces[i], board)))
+	if (board[y] < board[dimension] && board[x] < board[dimension])
+		{
+			if (pieces[i])
+			{
+				if (!(place_piece(map, pieces[i], board, i)))
+					i++;
+				board[x]++;
+			}
+			else if
+				i = 0;
+		}
 }

@@ -31,5 +31,5 @@ char		**set_map(void)
 
 	if (!(map = (char**)malloc(sizeof(map[0][0]) * 15 * 15)))
 		return (NULL);
-	ft_memset(map, '.', sizeof(map[0][0]) * 15 * 15);
+	return (ft_memset(map, '.', sizeof(map[0][0]) * 15 * 15));
 }
