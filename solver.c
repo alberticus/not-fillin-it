@@ -67,7 +67,7 @@ int			solve(char **map, char **pieces, int *board, int i)
 	{
 		while (pieces[i])
 		{
-			if (can_place())
+			if (can_place(map, pieces[i], board[d]))
 			{
 				if (place_piece(map, pieces[i], board, i))
 					board[x]++;
