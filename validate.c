@@ -12,6 +12,26 @@
 
 #include "fillit.h"
 
+static int		cfinder(char *input, int i, int line, int linesize)
+{
+	int count;
+
+	count = 0;
+	if (line != linesize)
+	{
+		if (input[i + 1] == '#')
+			count++;
+		if (input[i + linesize] == '#')
+			count++;
+	}
+	if (line == linesize - 1)
+	{
+		if (input[i + 1] == '#')
+			count++;
+	}
+	return (count);
+}
+
 static int		valid_check(char *file, int lines, int hash, int connect)
 {
 	int i;
@@ -40,26 +60,6 @@ static int		valid_check(char *file, int lines, int hash, int connect)
 	return (1);
 }
 
-static int		cfinder(char *input, int i, int line, int linesize)
-{
-	int count;
-
-	count = 0;
-	if (line != linesize)
-	{
-		if (input[i + 1] == '#')
-			count++;
-		if (input[i + linesize] == '#')
-			count++;
-	}
-	if (line == linesize - 1)
-	{
-		if (input[i + 1] == '#')
-			count++;
-	}
-	return (count);
-}
-
 static int		ft_ps(const char *str, char c)
 {
 	int	ct;
@@ -74,7 +74,7 @@ static int		ft_ps(const char *str, char c)
 		while (str[ct + len] != c)
 			len++;
 		if ((len != 20 && str[ct + len + 1] == c && str[ct + len] == c)
-			|| len != 20 && !(str[ct + len + 1]))
+			|| (len != 20 && !(str[ct + len + 1])))
 			return (0);
 		else if (str[ct + len + 1] == c && str[ct + len] == c)
 			ct += len;

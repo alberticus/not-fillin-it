@@ -28,9 +28,12 @@ char			*ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strnew(size_t size);
 void			ft_putendl(char const *s);
 char			*ft_strstr(const char *str, const char *to_find);
+char			*ft_strdup(const char *src);
+size_t			ft_strlen(const char *str);
 char			**make_pieces(char *map);
-char			**set_map(void);
-void			place_piece(char **map, char **piece);
-void			solve(char **map, char **pieces, int *board, int i);
+void			place_piece(char **map, char *piece, int *board, int i);
+void			remove_piece(char **map, char *alpha, int dimension, int i);
+int				solve(char **map, char **pieces, int *board, int i);
+int				been_placed(char *str, int i, int flag);
 
 #endif

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dysotoma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/02 23:25:33 by dysotoma          #+#    #+#             */
-/*   Updated: 2018/03/02 23:25:38 by dysotoma         ###   ########.fr       */
+/*   Created: 2018/02/19 17:28:09 by dysotoma          #+#    #+#             */
+/*   Updated: 2018/02/21 09:09:07 by dysotoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+size_t	ft_strlen(const char *str)
 {
-	char *str;
+	int len;
 
-	str = ft_strnew(len);
-	if (str == NULL)
-		return (NULL);
-	str = ft_strncpy(str, s + start, len);
-	return (str);
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }

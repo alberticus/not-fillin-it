@@ -12,10 +12,9 @@
 
 #include "fillit.h"
 
-static int	been_placed(char *str, int i, int flag)
+int		been_placed(char *str, int i, int flag)
 {
 	char	*alpha;
-	char	*alphas;
 
 	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	if (flag == 0)
@@ -27,13 +26,12 @@ static int	been_placed(char *str, int i, int flag)
 	}
 	if (flag == 1)
 	{
-		alphas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		alpha[i] = alphas[i];
+		alpha[i] = str[i];
 	}
 	return (0);
 }
 
-void		place_piece(char **map, char *piece, int board, int i)
+void	place_piece(char **map, char *piece, int *board, int i)
 {
 	char	*alpha;
 
@@ -45,7 +43,7 @@ void		place_piece(char **map, char *piece, int board, int i)
 
 }
 
-void		remove_piece(char **map, char *alphabet, int dimension, int index)
+void	remove_piece(char **map, char *alpha, int dimension, int i)
 {
 	int x;
 	int y;
@@ -56,12 +54,13 @@ void		remove_piece(char **map, char *alphabet, int dimension, int index)
 	{
 		while (x < dimension)
 		{
-			if (map[x][y] == alphabet[index])
-				map[x][y] = '.';
+			if (map[y][x] == alpha[i])
+				map[y][x] = '.';
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	been_placed(alphabet, index, 0);
+	been_placed(alpha, i, 1);
+	return ;
 }

@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dysotoma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/19 17:21:36 by dysotoma          #+#    #+#             */
-/*   Updated: 2018/03/19 17:21:38 by dysotoma         ###   ########.fr       */
+/*   Created: 2018/02/19 16:20:50 by dysotoma          #+#    #+#             */
+/*   Updated: 2018/02/23 12:00:00 by dysotoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void free_map(char **map)
+char	*ft_strdup(const char *src)
 {
-  int i;
-  
-  i = 0;
-  while (map[i])
-  {
-    free(map[i]);
-      i++;
-  }
-  free(map);
-}
+	int		i;
+	char	*dest;
 
-char		**set_map(void)
-{
-	char** map;
-
-	if (!(map = (char**)malloc(sizeof(map[0][0]) * 15 * 15)))
+	i = 0;
+	dest = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (!dest)
 		return (NULL);
-	return (ft_memset(map, '.', sizeof(map[0][0]) * 15 * 15));
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
