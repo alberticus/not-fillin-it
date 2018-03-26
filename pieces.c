@@ -87,3 +87,5 @@ int		can_place(char **map, char *piece, int dimension)
 		x++;
 		// we need to find a way to account for the board if the
 		// tetrimino goes out of bounds of the board
+	}
+}

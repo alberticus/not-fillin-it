@@ -31,7 +31,7 @@ char			*ft_strstr(const char *str, const char *to_find);
 char			*ft_strdup(const char *src);
 size_t			ft_strlen(const char *str);
 char			**make_pieces(char *map);
-void			place_piece(char **map, char *piece, int *board, int i);
+int				place_piece(char **map, char *piece, int *board, int i);
 void			remove_piece(char **map, char *alpha, int dimension, int i);
 int				solve(char **map, char **pieces, int *board, int i);
 int				been_placed(char *str, int i, int flag);
