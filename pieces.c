@@ -47,7 +47,7 @@ void	remove_piece(char **map, char *alpha, int dimension, int i)
 {
 	int x;
 	int y;
-	
+
 	x = 0;
 	y = 0;
 	while (y < dimension)
@@ -64,3 +64,26 @@ void	remove_piece(char **map, char *alpha, int dimension, int i)
 	been_placed(alpha, i, 1);
 	return ;
 }
+
+int		can_place(char **map, char *piece, int dimension)
+{
+	int index;
+	int x;
+	int y;
+
+	index = 0;
+	x = 0;
+	y = 0;
+	while (piece)
+	{
+		if (piece[index] == '\n')
+		{
+			x = 0;
+			y++;
+		}
+		if (piece[index] == '#' && map[x][y] != '.')
+			return (0);
+		index++;
+		x++;
+		// we need to find a way to account for the board if the
+		// tetrimino goes out of bounds of the board
