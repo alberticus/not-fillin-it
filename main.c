@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include "libft.h"
 
 static void		free_map(char **map)
 {
@@ -25,13 +26,22 @@ static void		free_map(char **map)
 	free(map);
 }
 
-static char		**set_map(void)
+static char		**make_map(void)
 {
+	int		i;
 	char	**map;
 
-	if (!(map = (char**)malloc(sizeof(map[0][0]) * 15 * 15)))
+	if (!(map = (char**)malloc(sizeof(char*) * 15 + 1)))
 		return (NULL);
-	return (ft_memset(map, '.', sizeof(map[0][0]) * 15 * 15));
+	i = 0;
+	while (i < 15)
+	{
+		if (!(map[i] = ft_memset(map[i] = (char*)malloc(sizeof(char*) * 15 + 1) , '.', 15)))
+			return (NULL);
+		map[i][15] = '\0';
+		i++;
+	}
+	return (map);
 }
 
 static char		*fileread(char *path)
@@ -66,8 +76,8 @@ int				main(int ac, char **av)
 	i = 0;
 	if (!(validate(fileread(av[1]))) && ac > 1)
 		ft_putendl("Error: invalid option please use an appropriate .txt file");
-	map_pieces = ft_strsplit(fileread(av[1]), '\n');
-	map = set_map();
+	map_pieces = ft_strsplit_double_char(fileread(av[1]), '\n');
+	map = make_map();
 	solve(map, map_pieces, board, i);
 	free_map(map_pieces);
 	print_map(map);

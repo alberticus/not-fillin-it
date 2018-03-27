@@ -11,14 +11,17 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
-#define y 0
-#define x 1
-#define d 2
-#define ALPHA char *alpha;
+#include "libft.h"
+
+/*
+** board[0] = y
+** board[1] = x
+** board[2] = dimensions
+*/
 
 static int	*board_d(int *board)
 {
-	board[d]++;
+	board[2]++;
 	return (board);
 }
 
@@ -38,8 +41,8 @@ static int	is_done(char **pieces)
 
 static int	*reset(int *board)
 {
-	board[x] = 0;
-	board[y]++;
+	board[1] = 0;
+	board[0]++;
 	return (board);
 }
 
@@ -48,7 +51,7 @@ static void	reset_map(char **map, char **pieces, int *board, int i)
 	i = 0;
 	while (pieces[i])
 	{
-		remove_piece(map, pieces[i], board[d], i);
+		remove_piece(map, pieces[i], board[2], i);
 		i++;
 	}
 	board_d(board);
@@ -57,29 +60,29 @@ static void	reset_map(char **map, char **pieces, int *board, int i)
 
 int			solve(char **map, char **pieces, int *board, int i)
 {
-	ALPHA;
-	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	if (board[x] == board[d] && board[y] == board[d] && is_done(pieces))
+	const char *alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))
 		return (0);
-	else if (board[x] == board[d] && board[y] == board[d] && is_done(pieces))
+	else if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))
 		reset_map(map, pieces, board, i);
-	if (board[x] < board[d] && board[y] < board[d])
+	if (board[1] < board[2] && board[0] < board[2])
 	{
 		while (pieces[i])
 		{
-			if (can_place(map, pieces[i], board[d]))
+			if (can_place(map, pieces[i], board[2]))
 			{
 				if (place_piece(map, pieces[i], board, i))
-					board[x]++;
+					board[1]++;
 				if (!(solve(map, pieces, board, i++)))
 					return (solve(map, pieces, board, i));
-				remove_piece(map, alpha, board[d], i);
+				remove_piece(map, alpha, board[2], i);
 			}
 			i++;
 		}
 		solve(map, pieces, board, 0);
 	}
-	else if (board[x] == board[d] && board[y] < board[d])
-		board = reset(board);
-	return (solve(map, pieces, board, i));
+	else if (board[1] == board[2] && board[0] < board[2])
+		return (solve(map, pieces, reset(board), i));
+	return (0);
 }

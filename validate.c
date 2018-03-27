@@ -12,6 +12,10 @@
 
 #include "fillit.h"
 
+/*
+**	used to make sure each tetrimino has a valid number of connections
+*/
+
 static int		cfinder(char *input, int i, int line, int linesize)
 {
 	int count;
@@ -31,6 +35,11 @@ static int		cfinder(char *input, int i, int line, int linesize)
 	}
 	return (count);
 }
+
+/*
+**	iterates through the full tetrimino string list and pass it in chunks to
+**	cfind for validation
+*/
 
 static int		valid_check(char *file, int lines, int hash, int connect)
 {
@@ -59,6 +68,10 @@ static int		valid_check(char *file, int lines, int hash, int connect)
 	}
 	return (1);
 }
+
+/*
+**	checks to make sure each tetrimino is the proper length
+*/
 
 static int		ft_ps(const char *str, char c)
 {

@@ -19,7 +19,7 @@
 # include <string.h>
 
 int				validate(char *file);
-char			**ft_strsplit(char const *s, char c);
+char			**ft_strsplit_double_char(char const *s, char c);
 void			ft_bzero(void *str, size_t n);
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_memalloc(size_t size);
@@ -36,5 +36,6 @@ void			remove_piece(char **map, char *alpha, int dimension, int i);
 int				solve(char **map, char **pieces, int *board, int i);
 int				been_placed(char *str, int i, int flag);
 int				can_place(char **map, char *piece, int dimension);
+char 			**normailize(char **str);
 
 #endif

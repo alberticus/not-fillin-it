@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include "libft.h"
 
 int		been_placed(char *str, int i, int flag)
 {
@@ -33,14 +34,30 @@ int		been_placed(char *str, int i, int flag)
 
 void	place_piece(char **map, char *piece, int *board, int i)
 {
-	char	*alpha;
+	const char	*alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int			index;
+	int			y;
+	int			x;
+	int			count;
 
-	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	index = 0;
+	y = board[0];
+	x = board[1];
+	count = 0;
 	if (been_placed(alpha, i, 0))
-	{
-
-	}
-
+		while (piece[index])
+		{
+			if (piece[index] == '\n')
+			{
+				count = 0;
+				y++;
+			}
+			else if (piece[index] == '#')
+				map[y][x + count] == alpha[i];
+			index++;
+			count++;
+		}
+	return ;
 }
 
 void	remove_piece(char **map, char *alpha, int dimension, int i)
@@ -65,27 +82,32 @@ void	remove_piece(char **map, char *alpha, int dimension, int i)
 	return ;
 }
 
-int		can_place(char **map, char *piece, int dimension)
+char	**normalize(char **str)
 {
-	int index;
-	int x;
-	int y;
+}
 
+int		can_place(char **map, char *piece, int *dimension)
+{
+	int	count;
+	int	index;
+	int	y;
+	int	x;
+
+	count = 0;
 	index = 0;
-	x = 0;
-	y = 0;
-	while (piece)
+	y = dimension[0];
+	x = dimension[1];
+	while (piece[index])
 	{
 		if (piece[index] == '\n')
 		{
-			x = 0;
 			y++;
+			count = 0;
 		}
-		if (piece[index] == '#' && map[x][y] != '.')
+		if (piece[index] == '#' && map[y][x + count] != '.'
+			|| map[y][x + count] >= dimension[2])
 			return (0);
 		index++;
-		x++;
-		// we need to find a way to account for the board if the
-		// tetrimino goes out of bounds of the board
 	}
+	return (1);
 }
