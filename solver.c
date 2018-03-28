@@ -59,7 +59,7 @@ static void	reset_map(char **map, char **pieces, int *board, int i)
 	return ;
 }
 
-void		solve(char **map, char **pieces, int *board, int i)
+int			solve(char **map, char **pieces, int *board, int i)
 {
 	ALPHA;
 	if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))

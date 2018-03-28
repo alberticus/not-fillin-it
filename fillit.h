@@ -18,7 +18,7 @@
 int				validate(char *file);
 int				place_piece(char **map, char *piece, int *board, int i);
 void			remove_piece(char **map, char *alpha, int dimension, int i);
-void			solve(char **map, char **pieces, int *board, int i);
+int				solve(char **map, char **pieces, int *board, int i);
 int				been_placed(char *str, int i, int flag);
 int				can_place(char **map, char *piece, int *dimension);
 char			**normalize(char **piece);

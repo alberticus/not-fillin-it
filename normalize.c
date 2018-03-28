@@ -36,7 +36,6 @@ static char	*moveup(char *piece)
 		newpiece[index] = piece[copyindex + index];
 		index++;
 	}
-	newpiece[index] = '\0';
 	return (newpiece);
 }
 
