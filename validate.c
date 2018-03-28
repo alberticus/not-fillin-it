@@ -98,12 +98,10 @@ static int		ft_ps(const char *str, char c)
 
 int				validate(char *file)
 {
-	int i;
 	int lines;
 	int hash;
 	int connect;
 
-	i = 0;
 	lines = 0;
 	hash = 0;
 	connect = 0;

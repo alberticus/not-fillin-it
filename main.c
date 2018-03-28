@@ -36,8 +36,9 @@ static char		**make_map(void)
 	i = 0;
 	while (i < 15)
 	{
-		if (!(map[i] = ft_memset(map[i] = (char*)malloc(sizeof(char*) * 15 + 1) , '.', 15)))
+		if (!(map[i] = (char*)malloc(sizeof(char) * 16)))
 			return (NULL);
+		map[i] = ft_memset(map[i], '.', 15);
 		map[i][15] = '\0';
 		i++;
 	}
@@ -69,6 +70,7 @@ static void		print_map(char **map)
 int				main(int ac, char **av)
 {
 	char	**map_pieces;
+	char	**norm_piece;
 	char	**map;
 	int		board[2];
 	int		i;
@@ -77,9 +79,11 @@ int				main(int ac, char **av)
 	if (!(validate(fileread(av[1]))) && ac > 1)
 		ft_putendl("Error: invalid option please use an appropriate .txt file");
 	map_pieces = ft_strsplit_double_char(fileread(av[1]), '\n');
-	map = make_map();
-	solve(map, map_pieces, board, i);
+	norm_piece = normalize(map_pieces);
 	free_map(map_pieces);
+	map = make_map();
+	solve(map, norm_piece, board, i);
+	free_map(norm_piece);
 	print_map(map);
 	free_map(map);
 	return (0);

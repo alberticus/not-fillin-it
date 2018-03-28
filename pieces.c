@@ -32,14 +32,15 @@ int		been_placed(char *str, int i, int flag)
 	return (0);
 }
 
-void	place_piece(char **map, char *piece, int *board, int i)
+int		place_piece(char **map, char *piece, int *board, int i)
 {
-	const char	*alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char		*alpha;
 	int			index;
 	int			y;
 	int			x;
 	int			count;
 
+	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	index = 0;
 	y = board[0];
 	x = board[1];
@@ -53,11 +54,11 @@ void	place_piece(char **map, char *piece, int *board, int i)
 				y++;
 			}
 			else if (piece[index] == '#')
-				map[y][x + count] == alpha[i];
+				map[y][x + count] = alpha[i];
 			index++;
 			count++;
 		}
-	return ;
+	return (0);
 }
 
 void	remove_piece(char **map, char *alpha, int dimension, int i)
@@ -80,10 +81,6 @@ void	remove_piece(char **map, char *alpha, int dimension, int i)
 	}
 	been_placed(alpha, i, 1);
 	return ;
-}
-
-char	**normalize(char **str)
-{
 }
 
 int		can_place(char **map, char *piece, int *dimension)

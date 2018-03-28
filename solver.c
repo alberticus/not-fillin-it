@@ -12,6 +12,7 @@
 
 #include "fillit.h"
 #include "libft.h"
+#define ALPHA char *alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 /*
 ** board[0] = y
@@ -58,10 +59,9 @@ static void	reset_map(char **map, char **pieces, int *board, int i)
 	return ;
 }
 
-int			solve(char **map, char **pieces, int *board, int i)
+void		solve(char **map, char **pieces, int *board, int i)
 {
-	const char *alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+	ALPHA;
 	if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))
 		return (0);
 	else if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))
@@ -70,7 +70,7 @@ int			solve(char **map, char **pieces, int *board, int i)
 	{
 		while (pieces[i])
 		{
-			if (can_place(map, pieces[i], board[2]))
+			if (can_place(map, pieces[i], board))
 			{
 				if (place_piece(map, pieces[i], board, i))
 					board[1]++;

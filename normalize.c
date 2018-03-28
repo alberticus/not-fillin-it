@@ -10,42 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fillit.h"
+#include "libft.h"
 
-void	normalize(char *piece)
+static char	*moveup(char *piece)
 {
-	moveup(piece);
-	moveleft(piece);
-}
-
-void	moveup(char *piece)
-{
-	int index;
-	char newpiece[20];
-	int unwantedrows;
-	int copyindex;
+	int		index;
+	char	newpiece[20];
+	int		unwantedrows;
+	int		copyindex;
 
 	index = 0;
 	unwantedrows = 0;
 	while (piece[index] != '#')
 	{
-		index++;
 		if (piece[index] == '\n')
 			unwantedrows++;
-	}
-	if (unwantedrows == 1)
-		copyindex = 5;
-	if (unwantedrows == 2)
-		copyindex = 10;
-	if (unwantedrows == 3)
-		copyindex = 15;
-	index = 0;
-	while (piece[copyindex])
-	{
-		newpiece[index] = piece[copyindex];
 		index++;
-		copyindex++;
+	}
+	copyindex = unwantedrows * 5;
+	index = 0;
+	while (piece[index])
+	{
+		if (piece[index] == '\n')
+
+			copyindex++;
+		newpiece[index] = piece[copyindex + index];
+		index++;
 	}
 	newpiece[index] = '\0';
+	return (newpiece);
 }
 
+char		**normalize(char **piece)
+{
+	char	**normal_piece;
+	int		i;
+
+	if (!(normal_piece = (char**)malloc(sizeof(char*) * 4)))
+		return (NULL);
+	i = 0;
+	while (piece[i])
+	{
+		if (!(normal_piece[i] = (char*)malloc(sizeof(char) * 5)))
+			return (NULL);
+		if (piece[i][0] == '#')
+			normal_piece[i] = piece[i];
+		normal_piece[i] = moveleft(moveup(piece[i]));
+		i++;
+	}
+	return (normal_piece);
+}
 
