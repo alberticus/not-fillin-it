@@ -51,6 +51,14 @@ static char	*moveleft(char *piece)
 	index = 0;
 	newpiece = ft_strnew(ft_strlen(piece));
 	copyindex = 0;
+	unwantedcolumns = 0;
+	if (piece[0] == '.' && piece[5] == '.' && piece[10] == '.' && piece[15] == '.')
+		unwantedcolumns++;
+	if (unwantedcolumns != 0 && piece[1] == '.' && piece[6] == '.' && piece[11] == '.' && piece[16] == '.')
+		unwantedcolumns++;
+	if (unwantedcolumns == 2 && piece[2] == '.' && piece[7] == '.' && piece[12] == '.' && piece[17] == '.')
+		unwantedcolumns++;
+	
 	
 	
 
