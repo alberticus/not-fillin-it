@@ -16,12 +16,13 @@
 static char	*moveup(char *piece)
 {
 	int		index;
-	char	newpiece[20];
+	char	*newpiece;
 	int		unwantedrows;
 	int		copyindex;
 
 	index = 0;
 	unwantedrows = 0;
+	newpiece = ft_strdup(piece);
 	while (piece[index] != '#')
 	{
 		if (piece[index] == '\n')
@@ -32,9 +33,6 @@ static char	*moveup(char *piece)
 	index = 0;
 	while (piece[index])
 	{
-		if (piece[index] == '\n')
-
-			copyindex++;
 		newpiece[index] = piece[copyindex + index];
 		index++;
 	}
