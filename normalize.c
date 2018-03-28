@@ -39,6 +39,21 @@ static char	*moveup(char *piece)
 	return (newpiece);
 }
 
+static char	*moveleft(char *piece)
+{
+	int index;
+	
+	index = 0;
+	char *newpiece;
+	int unwantedcolumns;
+	int copyindex;
+	
+	index = 0;
+	newpiece = ft_strnew(ft_strlen(piece));
+	copyindex = 0;
+	
+	
+
 char		**normalize(char **piece)
 {
 	char	**normal_piece;
