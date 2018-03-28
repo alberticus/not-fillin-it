@@ -22,7 +22,7 @@ static char	*moveup(char *piece)
 
 	index = 0;
 	unwantedrows = 0;
-	newpiece = ft_strdup(piece);
+	newpiece = ft_strnew(ft_strlen(piece));
 	while (piece[index] != '#')
 	{
 		if (piece[index] == '\n')
