@@ -74,7 +74,8 @@ static char	*moveleft(char *piece)
 		}
 		index++;
 	}
-	
+	return (piece);
+}
 	
 	
 
