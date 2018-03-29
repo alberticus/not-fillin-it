@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#define SET_PIECE int i = 0; int lines = 0; int connect = 0; int hash = 0
+
+static int		reset(int *lines, int *connect, int *hash)
+{
+	*lines = 0;
+	*connect = 0;
+	*hash = 0;
+	return (1);
+}
 
 /*
 **	used to make sure each tetrimino has a valid number of connections
@@ -41,12 +50,10 @@ static int		cfinder(char *input, int i, int line, int linesize)
 **	cfind for validation
 */
 
-static int		valid_check(char *file, int lines, int hash, int connect)
+static int		valid_check(char *file)
 {
-	int i;
-
-	i = -1;
-	while (file[++i])
+	SET_PIECE;
+	while (file[i])
 	{
 		if (file[i] != '.' && file[i] != '#' && file[i] != '\n')
 			return (0);
@@ -61,10 +68,13 @@ static int		valid_check(char *file, int lines, int hash, int connect)
 			connect = cfinder(file, i, lines, 5) + connect;
 			hash++;
 		}
-		if (lines == 5)
+		if (lines == 4)
 			if (((file[i + 1] != '\n') && (file[i + 1]))
 				|| (hash != 4) || (connect < 3))
 				return (0);
+			else if (file[i] == '\n' && file[i + 1] == '\n')
+				i += reset(&lines, &connect, &hash);
+		i++;
 	}
 	return (1);
 }
@@ -81,15 +91,16 @@ static int		ft_ps(const char *str, char c)
 	ct = 0;
 	while (str[ct])
 	{
+		len = 0;
 		if (str[ct] == c)
 			ct++;
-		len = 0;
-		while (str[ct + len] != c)
+		while (len < 19)
 			len++;
-		if ((len != 20 && str[ct + len + 1] == c && str[ct + len] == c)
-			|| (len != 20 && !(str[ct + len + 1])))
+		if ((len != 19 && str[ct + len + 1] == c && str[ct + len] == c)
+			|| (len != 19 && !(str[ct + len + 1])))
 			return (0);
-		else if (str[ct + len + 1] == c && str[ct + len] == c)
+		else if ((str[ct + len + 1] == c && str[ct + len] == c )
+				 || (str[ct + len] == c && !(str[ct + len + 1])))
 			ct += len;
 		ct++;
 	}
@@ -98,16 +109,9 @@ static int		ft_ps(const char *str, char c)
 
 int				validate(char *file)
 {
-	int lines;
-	int hash;
-	int connect;
-
-	lines = 0;
-	hash = 0;
-	connect = 0;
 	if (!(ft_ps(file, '\n')))
 		return (0);
-	if (valid_check(file, lines, hash, connect))
+	if (valid_check(file))
 		return (1);
 	return (0);
 }

@@ -76,11 +76,14 @@ int				main(int ac, char **av)
 	int		i;
 
 	i = 0;
+	board[0] = 0;
+	board[1] = 0;
+	board[2] = 2;
 	if (!(validate(fileread(av[1]))) && ac > 1)
 		ft_putendl("Error: invalid option please use an appropriate .txt file");
 	map_pieces = ft_strsplit_double_char(fileread(av[1]), '\n');
 	norm_piece = normalize(map_pieces);
-	free_map(map_pieces);
+	//free_map(map_pieces);
 	map = make_map();
 	solve(map, norm_piece, board, i);
 	free_map(norm_piece);

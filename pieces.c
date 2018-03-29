@@ -12,12 +12,12 @@
 
 #include "fillit.h"
 #include "libft.h"
+#define ALPHA char alpha[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 int		been_placed(char *str, int i, int flag)
 {
-	char	*alpha;
-
-	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char *alphas;
+	ALPHA;
 	if (flag == 0)
 	{
 		if (str[i] != alpha[i])
@@ -25,9 +25,10 @@ int		been_placed(char *str, int i, int flag)
 		alpha[i] = 0;
 		return (1);
 	}
-	if (flag == 1)
+	else if (flag == 1)
 	{
-		alpha[i] = str[i];
+		alphas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		alpha[i] = alphas[i];
 	}
 	return (0);
 }
@@ -101,9 +102,11 @@ int		can_place(char **map, char *piece, int *dimension)
 			y++;
 			count = 0;
 		}
-		if (piece[index] == '#' && map[y][x + count] != '.'
-			|| map[y][x + count] >= dimension[2])
+		if (!(piece[index] == '#' && map[y][x + count] != '.'
+			|| map[y][x + count] >= dimension[2]))
+		{
 			return (0);
+		}
 		index++;
 	}
 	return (1);

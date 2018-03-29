@@ -33,9 +33,9 @@ static int	is_done(char **pieces)
 	i = 0;
 	while (pieces[i])
 	{
-		if (been_placed(pieces[i], i, 0) == 1)
-			i++;
-		return (0);
+		if (been_placed(pieces[i], i, 0) == 0)
+			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -49,10 +49,11 @@ static int	*reset(int *board)
 
 static void	reset_map(char **map, char **pieces, int *board, int i)
 {
+	ALPHA;
 	i = 0;
 	while (pieces[i])
 	{
-		remove_piece(map, pieces[i], board[2], i);
+		remove_piece(map, alpha, board[2], i);
 		i++;
 	}
 	board_d(board);
@@ -63,8 +64,8 @@ int			solve(char **map, char **pieces, int *board, int i)
 {
 	ALPHA;
 	if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))
-		return (0);
-	else if (board[1] == board[2] && board[0] == board[2] && is_done(pieces))
+		return (1);
+	else if (board[1] == board[2] && board[0] == board[2] && !is_done(pieces))
 		reset_map(map, pieces, board, i);
 	if (board[1] < board[2] && board[0] < board[2])
 	{
@@ -75,12 +76,13 @@ int			solve(char **map, char **pieces, int *board, int i)
 				if (place_piece(map, pieces[i], board, i))
 					board[1]++;
 				if (!(solve(map, pieces, board, i++)))
-					return (solve(map, pieces, board, i));
+					return (0);
 				remove_piece(map, alpha, board[2], i);
 			}
 			i++;
 		}
-		solve(map, pieces, board, 0);
+		//board[1]++;
+		return (solve(map, pieces, board, 0));
 	}
 	else if (board[1] == board[2] && board[0] < board[2])
 		return (solve(map, pieces, reset(board), i));
