@@ -12,6 +12,20 @@
 
 #include "fillit.h"
 #include "libft.h"
+#define INIT int index; int rem; int timesmovedleft
+
+static int	ft_wc(char **str)
+{
+	int	count;
+
+	count = 0;
+	while (*str)
+	{
+		count++;
+		str++;
+	}
+	return (count);
+}
 
 static char	*moveup(char *piece)
 {
@@ -44,57 +58,75 @@ static char	*moveup(char *piece)
 ** I wrote it so that it changes the original string and returns it
 */
 
-static char	*moveleft(char *piece)
+static int	moveleft_check(char *p)
 {
+	int i;
 	int index;
+	int rem;
+	int len;
 
-	index = 0;
-	int unwantedcolumns;
-	int copyindex;
-	int timesmovedleft;
 
+	i = 0;
 	index = 0;
-	copyindex = 0;
-	unwantedcolumns = 0;
-	timesmovedleft = 0;
-	if (piece[0] == '.' && piece[5] == '.' && piece[10] == '.' && piece[15] == '.')
-		unwantedcolumns++;
-	if (unwantedcolumns == 1 && piece[1] == '.' && piece[6] == '.' && piece[11] == '.' && piece[16] == '.')
-		unwantedcolumns++;
-	if (unwantedcolumns == 2 && piece[2] == '.' && piece[7] == '.' && piece[12] == '.' && piece[17] == '.')
-		unwantedcolumns++;
-	while (timesmovedleft < unwantedcolumns)
+	len = ft_strlen(p);
+	rem = 0;
+	while (i < 3)
 	{
-		if (!piece[index])
-			timesmovedleft++;
-		if (piece[index + 1] == '#')
+		index = 0;
+		while (p[i + index] == '.')
+			index += 5;
+		if (p[i + index] == '#')
+			return (rem);
+		i++;
+		rem++;
+	}
+	return (rem);
+}
+
+static char *moveleft(char *p)
+{
+	INIT;
+	index = 0;
+	timesmovedleft = 0;
+	rem = moveleft_check(p);
+	while (timesmovedleft < rem)
+	{
+		if (!p[index])
 		{
-			piece[index] = '#';
-			piece[index + 1] = '.';
+			index = 0;
+			timesmovedleft++;
+		}
+		if (timesmovedleft == rem)
+			break ;
+		if (p[index + 1] == '#')
+		{
+			p[index] = '#';
+			p[index + 1] = '.';
 		}
 		index++;
 	}
-	return (piece);
+	return (p);
 }
 
 char		**normalize(char **piece)
 {
-	char	**normal_piece;
+	char	**new_p;
 	int		i;
+	int		count;
 
-	if (!(normal_piece = (char**)malloc(sizeof(char*) * 4)))
+	count = ft_wc(piece);
+	if (!(new_p = (char **)ft_memalloc(sizeof(char *) * (count + 1))))
 		return (NULL);
 	i = 0;
 	while (piece[i])
 	{
-		if (!(normal_piece[i] = (char*)malloc(sizeof(char) * 5)))
+		if (!(new_p[i] = (char*)malloc(sizeof(char) * 20)))
 			return (NULL);
 		if (piece[i][0] == '#')
-			normal_piece[i] = piece[i];
+			new_p[i] = piece[i];
 		else if (piece[i][0] != '#')
-			normal_piece[i] = moveleft(moveup(piece[i]));
+			new_p[i] = moveleft(moveup(piece[i]));
 		i++;
 	}
-	return (normal_piece);
+	return (new_p);
 }
-

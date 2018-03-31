@@ -13,52 +13,31 @@
 #include "fillit.h"
 #include "libft.h"
 #define ALPHA char alpha[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-int		been_placed(char *str, int i, int flag)
-{
-	char *alphas;
-	ALPHA;
-	if (flag == 0)
-	{
-		if (str[i] != alpha[i])
-			return (0);
-		alpha[i] = 0;
-		return (1);
-	}
-	else if (flag == 1)
-	{
-		alphas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		alpha[i] = alphas[i];
-	}
-	return (0);
-}
+#define XY int y = board[0]; int x = board[1]
+#define COUNT int index = 0; int count = 0
 
 int		place_piece(char **map, char *piece, int *board, int i)
 {
-	char		*alpha;
-	int			index;
-	int			y;
-	int			x;
-	int			count;
-
-	alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	index = 0;
-	y = board[0];
-	x = board[1];
-	count = 0;
-	if (been_placed(alpha, i, 0))
+	ALPHA;
+	XY;
+	COUNT;
+	if (can_place(map, piece, board))
+	{
 		while (piece[index])
 		{
+			if (piece[index] != '\n' && piece[index] != '.')
+				map[y][x + count] = alpha[i];
+			count++;
+			index++;
 			if (piece[index] == '\n')
 			{
 				count = 0;
 				y++;
+				index++;
 			}
-			else if (piece[index] == '#')
-				map[y][x + count] = alpha[i];
-			index++;
-			count++;
 		}
+		return (1);
+	}
 	return (0);
 }
 
@@ -80,7 +59,6 @@ void	remove_piece(char **map, char *alpha, int dimension, int i)
 		x = 0;
 		y++;
 	}
-	been_placed(alpha, i, 1);
 	return ;
 }
 
@@ -97,17 +75,18 @@ int		can_place(char **map, char *piece, int *dimension)
 	x = dimension[1];
 	while (piece[index])
 	{
+		if ((piece[index] == '#' && map[y][x + count] != '.')
+			|| (((x + count) >= dimension[2] || y >= dimension[2]) &&
+			piece[index] == '#'))
+			return (0);
+		index++;
+		count++;
 		if (piece[index] == '\n')
 		{
 			y++;
 			count = 0;
+			index++;
 		}
-		if (!(piece[index] == '#' && map[y][x + count] != '.'
-			|| map[y][x + count] >= dimension[2]))
-		{
-			return (0);
-		}
-		index++;
 	}
 	return (1);
 }

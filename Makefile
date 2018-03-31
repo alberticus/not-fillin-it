@@ -1,12 +1,19 @@
 NAME = fillit
-HEADER = -c
-CONFIG = gcc $(HEADER) -Wall -Wextra -Werror $(SRC)
-CONFIG2 =
-SRC = .c\
+LIBFT = libft/libft.a
+CONFIG = gcc -I libft/ -Wall -Wextra -Werror $(SRC) -c
+CONFIG2 = gcc -L libft -lft $(OBJ) -o $(NAME)
+SRC = main.c\
+      normalize.c\
+      pieces.c\
+      validate.c\
+      solver.c
 
 OBJ = $(patsubst %.c, %.o, $(SRC))
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
+
+$(LIBFT):
+	make -C libft/
 
 $(NAME):
 	$(CONFIG)
@@ -15,8 +22,10 @@ $(NAME):
 
 clean:
 	/bin/rm -f $(OBJ)
+	make -C libft clean
 
 fclean: clean
 	/bin/rm -f $(NAME)
+	make -C libft fclean
 
 re: fclean all

@@ -12,6 +12,8 @@
 
 #include "fillit.h"
 #include "libft.h"
+#define MAP_AND_PIECE char **map_pieces; char **norm_piece; char **map
+#define BOARD board[0] = 0; board[1] = 0; board[2] = 2
 
 static void		free_map(char **map)
 {
@@ -61,33 +63,47 @@ static char		*fileread(char *path)
 	return (ft_strdup(buffer));
 }
 
-static void		print_map(char **map)
+static void		print_map(char **map, int border)
 {
-	while (*map)
-		ft_putendl(*map++);
+	int y;
+	int x;
+
+	y = 0;
+	while (y < border)
+	{
+		x = 0;
+		while (x < border)
+			write(1, &map[y][x++], 1);
+		write(1, "\n", 1);
+		y++;
+	}
 }
 
 int				main(int ac, char **av)
 {
-	char	**map_pieces;
-	char	**norm_piece;
-	char	**map;
-	int		board[2];
+	int		board[3];
 	int		i;
 
+	MAP_AND_PIECE;
+	BOARD;
 	i = 0;
-	board[0] = 0;
-	board[1] = 0;
-	board[2] = 2;
-	if (!(validate(fileread(av[1]))) && ac > 1)
-		ft_putendl("Error: invalid option please use an appropriate .txt file");
+	if (ac != 2)
+	{
+		ft_putendl("Please put in one valid .txt file!");
+		return (0);
+	}
+	if ((!(validate(fileread(av[1])))))
+	{
+		ft_putendl("error");
+		return (0);
+	}
 	map_pieces = ft_strsplit_double_char(fileread(av[1]), '\n');
 	norm_piece = normalize(map_pieces);
-	//free_map(map_pieces);
 	map = make_map();
-	solve(map, norm_piece, board, i);
+	while (!solve(map, norm_piece, board, i))
+		board[2]++;
 	free_map(norm_piece);
-	print_map(map);
+	print_map(map, board[2]);
 	free_map(map);
 	return (0);
 }
