@@ -63,12 +63,8 @@ static int	moveleft_check(char *p)
 	int i;
 	int index;
 	int rem;
-	int len;
-
 
 	i = 0;
-	index = 0;
-	len = ft_strlen(p);
 	rem = 0;
 	while (i < 3)
 	{
@@ -83,7 +79,7 @@ static int	moveleft_check(char *p)
 	return (rem);
 }
 
-static char *moveleft(char *p)
+static char	*moveleft(char *p)
 {
 	INIT;
 	index = 0;
